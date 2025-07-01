@@ -2,14 +2,35 @@ import UserModel from "../Models/User_Model.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
+// function for creating a new user document
 export function registerUser(req, res){
 
     const {username, email, password} = req.body;
 
+    // Email regex for validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    // Password regex (min 6 characters, at least one number)
+    const passwordRegex = /^(?=.*[0-9]).{6,}$/;
+
+    // Validate email
+    if (!email || !emailRegex.test(email)) {
+        return res.status(400).json({
+            message: 'Invalid email format. Email must contain "@" and a valid domain name (e.g., example@domain.com).'
+        });
+    }
+
+    // Validate password
+    if (!password || !passwordRegex.test(password)) {
+        return res.status(400).json({
+            message: 'Password must be at least 6 characters long and contain at least one number.'
+        });
+    }
+
     // register the user if user matching with email does not exist
     UserModel.findOne({email}).then(user => {
         if(user){
-            return res.status(500).json({message: 'User already exists!'})
+            return res.status(409).json({message: 'User already exists!'})
         }else{
             // creating a new user in database and storing hashed password in DB
             UserModel.create({username, email, password: bcrypt.hashSync(password, 10)})
@@ -31,7 +52,7 @@ export function registerUser(req, res){
     })
 }
 
-
+// function for handling the login feature
 export function loginUser(req, res){
     
     // we need only email and password for login

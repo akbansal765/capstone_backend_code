@@ -1,6 +1,7 @@
 import jwt from 'jsonwebtoken'
 import UserModel from '../Models/User_Model.js';
 
+// middleware function for verify the token
 function verifyToken(req, res, next){
     const auth = req.headers.authorization;
     // if request has headers and JWT bearer then verify the token
