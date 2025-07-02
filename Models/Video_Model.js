@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 
 const commentSchema = new mongoose.Schema({
   userName: { type: String, required: true },
+  userEmail: {type: String},
   text: { type: String, required: true },
   internalUser: {type: Boolean, default: false}
 }, {timestamps: true});

@@ -10,11 +10,11 @@ export async function addComment(req, res){
       return res.status(404).json({message: "Video did not found"})
     }
     
-    const {userName, text, internalUser} = req.body;
+    const {userName, userEmail, text, internalUser} = req.body;
     if(!userName || !text){
       return res.status(500).json({message: "Kindly type something to add a comment!!"})
     }
-    const newComment = {userName, text, internalUser};
+    const newComment = {userName, userEmail, text, internalUser};
     
     //pushing the new comment data to comments array in video document to the top
     video.comments.unshift(newComment);
