@@ -24,7 +24,7 @@ channelRoutes(app);
 
 
 //connecting with MongoDB Atlas
-mongoose.connect('mongodb+srv://akbansal765:l7bbY0QdlyRA6eOu@cluster0.wxkk1bi.mongodb.net/capstoneProject').then(() => {
+mongoose.connect('mongodb+srv://akbansal765:9ZLkSADVpWFOxPNf@cluster0.wxkk1bi.mongodb.net/capstoneProject').then(() => {
     console.log("MongoDB Atlas Successfully Connected!!");
 }).catch(() => {
     console.log("MongoDB Atlas not connected. Try again!!");
